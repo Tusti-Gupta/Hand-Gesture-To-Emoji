@@ -20,6 +20,43 @@ function check() {
     classifier.classify(img, gotResult);
 }
 
+function gotResult (error, results) {
+    if (error) {
+        console.error(error);
+    } else {
+        console.log(results);
+        document.getElementById("result_emotion_name").innerHTML = results[0].label;
+        document.getElementById("result_emotion_name2").innerHTML = results[1].label;
+        document.getElementById("OR_label").innerHTML = "ᴏʀ";
+        prediction_1 = results[0].label;
+        prediction_2 = results[1].label;
+        if (results[0].label == "Great") {
+            document.getElementById("update_emoji").innerHtml = "&#128076";
+        } else if(results[0].label == "Folded Hands") {
+            document.getElementById("update_emoji").innerHtml = "&#128591;";
+        } else if (results[0].label == "Crossed Fingers") {
+            document.getElementById("update_emoji").innerHtml = "&#129310;";
+        } else if (results[0].label == "Thumbs Up") {
+            document.getElementById("update_emoji").innerHtml = "&#128077;";
+        } else if (results[0].label == "Thumbs Down") {
+            document.getElementById("update_emoji").innerHtml = "&#128078;";
+        }
+
+        if (results[1].label == "Great") {
+            document.getElementById("update_emoji2").innerHtml = "&#128076";
+        } else if(results[1].label == "Folded Hands") {
+            document.getElementById("update_emoji2").innerHtml = "&#128591;";
+        } else if (results[1].label == "Crossed Fingers") {
+            document.getElementById("update_emoji2").innerHtml = "&#129310;";
+        } else if (results[1].label == "Thumbs Up") {
+            document.getElementById("update_emoji2").innerHtml = "&#128077;";
+        } else if (results[1].label == "Thumbs Down") {
+            document.getElementById("update_emoji2").innerHtml = "&#128078;";
+        }
+        speak();
+    }
+}
+
 function speak() {
     var synth = window.speechSynthesis;
     speak_data_1 = "Are you showing" + prediction_1;
